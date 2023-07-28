@@ -21,8 +21,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+<<<<<<< HEAD
 app.UseHttpsRedirection();
 app.UseCors(policy=>policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+=======
+
+>>>>>>> e934563d2c3c35585eb74d084d55a82c7c8d6c6f
 app.UseAuthorization();
 
 app.MapControllers();
