@@ -26,15 +26,53 @@ namespace StudentAdminPotal.Controllers
         }
 
         [HttpGet]
-        [Route("[Controller]/{studentId:guid}")]
-        public async Task<IActionResult> GetAllStudentAsync([FromRoute] Guid studentId)
+        [Route("[Controller]/{studentId:guid}"), ActionName("GetStudentAsync")]
+        public async Task<IActionResult> GetStudentAsync([FromRoute] Guid studentId)
         {
-          var student = await studentReposity.GetStudentAsync(studentId);
-            if(student == null)
+            var student = await studentReposity.GetStudentAsync(studentId);
+            if (student == null)
             {
                 return NotFound();
             }
             return Ok(mapper.Map<Student>(student));
+        }
+
+        [HttpPut]
+        [Route("[Controller]/{studentId:guid}")]
+        public async Task<IActionResult> UpdateStudentAsync([FromRoute] Guid studentId, [FromBody] UpdateStudentRequest request)
+        {
+            if(await studentReposity.Exists(studentId))
+            {
+              var updateStudent =  await studentReposity.UpdateStudent(studentId, mapper.Map<Models.Student>(request));
+
+                if(updateStudent != null)
+                {
+                    return Ok(mapper.Map<Student>(updateStudent));
+                }
+            } 
+            
+                return NotFound();
+            
+        }
+
+        [HttpDelete]
+        [Route("[Controller]/{studentId:guid}")]
+        public async Task<IActionResult> DeleteStudentAsync([FromRoute] Guid studentId)
+        {
+            if (await studentReposity.Exists(studentId))
+            {
+                var student = await studentReposity.DeleteStudent(studentId);
+                return Ok(mapper.Map<Student>(student));
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        [Route("[Controller]/Add")]
+        public async Task<IActionResult> AddStudentAsync([FromBody] AddStudent request)
+        {
+          var student =await studentReposity.AddStudent(mapper.Map<Models.Student>(request));
+            return CreatedAtAction(nameof(GetStudentAsync), new { studentId = student.Id }, mapper.Map<Student>(student));
         }
     }
 }
