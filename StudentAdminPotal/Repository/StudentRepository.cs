@@ -12,11 +12,23 @@ namespace StudentAdminPotal.Repository
         {
             this.studentDbContext = studentDbContext;
         }
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> e934563d2c3c35585eb74d084d55a82c7c8d6c6f
+>>>>>>> 0287b490315fa22b224992bdc4d7af4056f0f83f
         public async Task<List<Student>> GetStudentsAsync()
         {
             return await studentDbContext.Student.Include(nameof(Gender)).Include(nameof(Address)).ToListAsync();
         }
+<<<<<<< HEAD
+=======
+
+<<<<<<< HEAD
+>>>>>>> 0287b490315fa22b224992bdc4d7af4056f0f83f
         public async Task<Student> GetStudentAsync(Guid studentId)
         {
           return await studentDbContext.Student.Include(nameof(Gender)).Include(nameof(Address)).FirstOrDefaultAsync(x =>x.Id == studentId);
@@ -26,6 +38,7 @@ namespace StudentAdminPotal.Repository
         {
             return await studentDbContext.Gender.ToListAsync();
         }
+<<<<<<< HEAD
 
         public async Task<bool> Exists(Guid studentId)
         {
@@ -70,5 +83,10 @@ namespace StudentAdminPotal.Repository
             await studentDbContext.SaveChangesAsync();
             return student.Entity;
         }
+=======
+=======
+        
+>>>>>>> e934563d2c3c35585eb74d084d55a82c7c8d6c6f
+>>>>>>> 0287b490315fa22b224992bdc4d7af4056f0f83f
     }
 }
